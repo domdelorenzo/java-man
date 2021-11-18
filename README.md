@@ -29,7 +29,7 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ***
 
 ### ***Roadmap (Future Updates)***
-*
+
 * [ ] animate sprites
 * [ ] add 1UP logic
 * [ ] Add darkmode/color theming

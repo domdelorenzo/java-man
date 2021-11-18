@@ -1,0 +1,29 @@
+.container {
+  display:grid;
+}
+.map{
+  display:grid;
+  grid-template-columns: repeat(3,40px);
+  grid-template-rows: repeat(3,40px);
+  position: absolute;
+}
+.wall{
+  background:#4783ff;
+}
+.path{
+  background: #0bcb00;
+}
+
+.overlay{
+  display:grid;
+  grid-template-columns: repeat(3,40px);
+  grid-template-rows: repeat(3,40px);
+  position: absolute;
+}
+.sprite {
+  background: #faff8a;
+  grid-column-start: 2;
+  /* grid-column-end: auto; */
+  grid-row-start: 2;
+  /* grid-row-start: auto; */
+}
