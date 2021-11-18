@@ -29,7 +29,16 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ***
 
 ### ***Roadmap (Future Updates)***
-
+*
+* [ ] animate sprites
+* [ ] add 1UP logic
+* [ ] Add darkmode/color theming
+* [ ] Add sound effects
+* [ ] Add background music
+* [ ] Loop sprite to opposite side when edge is reached
+* [ ] Allow users to select number of enemy sprites
+* [ ] Track high score after every death
+* [ ] Add game over after three deaths logic
 
 ***
 
