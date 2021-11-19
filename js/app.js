@@ -12,12 +12,18 @@ const initialPosition = () => {
 };
 initialPosition();
 
+// retrieve sprite position at any time
 const getPosition = () => {
   let x = document.querySelector(`.sprite`).style.gridColumnStart;
   let y = document.querySelector(`.sprite`).style.gridRowStart;
   return `${y}_${x}`;
 };
 
+// change dots to blank background and increment score
+const incrementScore = () => {
+  score++;
+  document.querySelector(`.score`).innerText = score;
+};
 const eatDot = (coord) => {
   let currentSquare = document.getElementById(coord);
   if ((currentSquare.className = coord)) {
@@ -26,19 +32,6 @@ const eatDot = (coord) => {
   }
 };
 /* Generate Grid*/
-// const newDiv = document.createElement(`div`);
-// const board = document.querySelector(`.map`);
-// newDiv.setAttribute('id', '1_1');
-// board.appendChild.newDiv;
-// const newDiv = document.createElement(`div`);
-// const board = document.querySelector(`.map`);
-// newDiv.setAttribute('id', '1_2');
-// board.appendChild.newDiv;
-// const newDiv = document.createElement(`div`);
-// const board = document.querySelector(`.map`);
-// newDiv.setAttribute('id', '1_3');
-// board.appendChild.newDiv;
-
 const gridMaker = (x, y) => {
   for (let i = 1; i < x; i++) {
     for (let j = 1; j < y; j++) {
@@ -60,13 +53,9 @@ const gridMaker = (x, y) => {
   }
   // document.querySelector(`.map`).insertAdjacentHTML(`afterbegin`,`<div class="dot"></div>`)
 };
-const incrementScore = () => {
-  score++;
-  document.querySelector(`.score`).innerText = score;
-};
 
 gridMaker(11, 11);
-
+/* establish dots*/
 const layDots = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     document.getElementById(arr[i]).setAttribute('class', 'dot');
@@ -75,21 +64,56 @@ const layDots = (arr) => {
 
 layDots(dotArray);
 
+/* detect walls */
+//get class of adjacent square
+const adjacentPosition = (a, b) => {
+  let x = parseInt(document.querySelector(`.sprite`).style.gridColumnStart) + a;
+  let y = parseInt(document.querySelector(`.sprite`).style.gridRowStart) + b;
+  let adjSquareID = `${y}_${x}`;
+  return document.getElementById(adjSquareID).className;
+};
+
 //* directional functions*//
 
 const moveFunc = (e) => {
   switch (e.key) {
     case `ArrowUp`:
-      player.style.gridRowStart = parseInt(player.style.gridRowStart) - 1;
+      console.log(adjacentPosition(0, -1));
+      if (adjacentPosition(0, -1) === `wall`) {
+        return;
+      } else {
+        player.style.gridRowStart = parseInt(player.style.gridRowStart) - 1;
+        break;
+      }
       break;
     case `ArrowDown`:
-      player.style.gridRowStart = parseInt(player.style.gridRowStart) + 1;
+      console.log(adjacentPosition(0, 1));
+      if (adjacentPosition(0, 1) === `wall`) {
+        return;
+      } else {
+        player.style.gridRowStart = parseInt(player.style.gridRowStart) + 1;
+        break;
+      }
       break;
     case `ArrowLeft`:
-      player.style.gridColumnStart = parseInt(player.style.gridColumnStart) - 1;
+      console.log(adjacentPosition(-1, 0));
+      if (adjacentPosition(-1, 0) === `wall`) {
+        return;
+      } else {
+        player.style.gridColumnStart =
+          parseInt(player.style.gridColumnStart) - 1;
+        break;
+      }
       break;
     case `ArrowRight`:
-      player.style.gridColumnStart = parseInt(player.style.gridColumnStart) + 1;
+      console.log(adjacentPosition(1, 0));
+      if (adjacentPosition(1, 0) === `wall`) {
+        return;
+      } else {
+        player.style.gridColumnStart =
+          parseInt(player.style.gridColumnStart) + 1;
+        break;
+      }
       break;
     default:
       return;
@@ -108,3 +132,17 @@ function logKey(e) {
 
 document.addEventListener('keydown', logKey);
 */
+
+/* Generate Grid*/
+// const newDiv = document.createElement(`div`);
+// const board = document.querySelector(`.map`);
+// newDiv.setAttribute('id', '1_1');
+// board.appendChild.newDiv;
+// const newDiv = document.createElement(`div`);
+// const board = document.querySelector(`.map`);
+// newDiv.setAttribute('id', '1_2');
+// board.appendChild.newDiv;
+// const newDiv = document.createElement(`div`);
+// const board = document.querySelector(`.map`);
+// newDiv.setAttribute('id', '1_3');
+// board.appendChild.newDiv;
