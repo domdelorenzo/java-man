@@ -14,13 +14,30 @@ const dotArray = [
   `2_9`,
   `3_9`,
   `4_9`,
+  `5_3`,
+  `5_4`,
+  `5_5`,
+  `5_6`,
+  `5_7`,
+  `5_8`,
   `5_9`,
   `6_9`,
   `7_9`,
   `8_9`,
   `9_9`,
   `9_8`,
-  `9_7`
+  `9_7`,
+  `9_6`,
+  `9_5`,
+  `9_4`,
+  `9_3`,
+  `9_2`,
+  `8_2`,
+  `7_2`,
+  `6_2`,
+  `5_2`,
+  `4_2`,
+  `3_2`
 ];
 let score = 0;
 /* define functions here */
@@ -51,7 +68,7 @@ const incrementScore = () => {
 };
 const eatDot = (coord) => {
   let currentSquare = document.getElementById(coord);
-  if ((currentSquare.className = coord)) {
+  if (currentSquare.className === `dot`) {
     currentSquare.className = `path`;
     incrementScore();
   }
@@ -102,7 +119,6 @@ const spriteAdjacentPosition = (sprite, a, b) => {
 const ghostMove = (sprite) => {
   switch (Math.floor(Math.random() * 4)) {
     case 0:
-      console.log(spriteAdjacentPosition(sprite, 0, -1));
       if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
         return;
       } else {
@@ -111,7 +127,6 @@ const ghostMove = (sprite) => {
       }
       break;
     case 1:
-      console.log(spriteAdjacentPosition(sprite, 0, 1));
       if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
         return;
       } else {
@@ -120,7 +135,6 @@ const ghostMove = (sprite) => {
       }
       break;
     case 2:
-      console.log(spriteAdjacentPosition(sprite, -1, 0));
       if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
         return;
       } else {
@@ -130,7 +144,6 @@ const ghostMove = (sprite) => {
       }
       break;
     case 3:
-      console.log(spriteAdjacentPosition(sprite, 1, 0));
       if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
         return;
       } else {
