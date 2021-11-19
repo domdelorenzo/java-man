@@ -117,7 +117,24 @@ const spriteAdjacentPosition = (sprite, a, b) => {
 
 //ghost move function
 const ghostMove = (sprite) => {
-  switch (Math.floor(Math.random() * 4)) {
+  let choiceArray = [0, 1, 2, 3];
+  //detect available paths and remove invalid options from choiceArray
+  if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(0), 1);
+  }
+  if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(1), 1);
+  }
+  if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(2), 1);
+  }
+  if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(3), 1);
+  }
+  console.log(choiceArray);
+  //set switch options from available paths
+  let randomChoice = Math.floor(Math.random() * choiceArray.length);
+  switch (choiceArray[randomChoice]) {
     case 0:
       if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
         return;
