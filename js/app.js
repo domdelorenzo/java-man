@@ -55,13 +55,19 @@ const enemyPosition = () => {
 };
 enemyPosition();
 
-// retrieve sprite position at any time
+//retrieve any sprite position at any time
+const getSpritePosition = (sprite) => {
+  let x = sprite.style.gridColumnStart;
+  let y = sprite.style.gridRowStart;
+  return `${y}_${x}`;
+};
+
+// retrieve player position at any time
 const getPosition = () => {
   let x = document.querySelector(`.sprite`).style.gridColumnStart;
   let y = document.querySelector(`.sprite`).style.gridRowStart;
   return `${y}_${x}`;
 };
-
 // change dots to blank background and increment score
 const incrementScore = () => {
   score++;
@@ -172,6 +178,7 @@ const ghostMove = (sprite) => {
     default:
       return;
   }
+  deathCheck();
 };
 
 const moveFunc = (e) => {
@@ -218,6 +225,7 @@ const moveFunc = (e) => {
       return;
   }
   eatDot(getPosition());
+  deathCheck();
   levelWinCheck();
 };
 
@@ -243,6 +251,12 @@ const levelWinCheck = () => {
   }
 };
 
+const deathCheck = () => {
+  if (getPosition() === getSpritePosition(enemy)) {
+    alert(`uh oh, you lost`);
+    gameActive = false;
+  }
+};
 const gameOver = () => {
   alert(`uh oh, you lost`);
 };
