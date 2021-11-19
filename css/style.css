@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+* {
+  font-family: 'Press Start 2P', cursive;
+}
 .container {
   display:grid;
   grid-template-columns: 1f;
@@ -6,8 +12,8 @@
 }
 .map{
   display:grid;
-  grid-template-columns: repeat(10,40px);
-  grid-template-rows: repeat(10,40px);
+  grid-template-columns: repeat(28,20px);
+  grid-template-rows: repeat(31,20px);
   position: absolute;
   background: #000000;
   /* justify-items: center;
@@ -36,8 +42,8 @@
 
 .overlay{
   display:grid;
-  grid-template-columns: repeat(10,40px);
-  grid-template-rows: repeat(10,40px);
+  grid-template-columns: repeat(29,20px);
+  grid-template-rows: repeat(31,20px);
   position: absolute;
 }
 
