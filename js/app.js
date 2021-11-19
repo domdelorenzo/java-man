@@ -86,7 +86,59 @@ const adjacentPosition = (a, b) => {
   return document.getElementById(adjSquareID).className;
 };
 
+const spriteAdjacentPosition = (sprite, a, b) => {
+  let x = parseInt(sprite.style.gridColumnStart) + a;
+  let y = parseInt(sprite.style.gridRowStart) + b;
+  let adjSquareID = `${y}_${x}`;
+  return document.getElementById(adjSquareID).className;
+};
+
 //* directional functions*//
+
+const ghostMove = (sprite) => {
+  switch (Math.floor(Math.random() * 4)) {
+    case 0:
+      console.log(spriteAdjacentPosition(sprite, 0, -1));
+      if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) - 1;
+        break;
+      }
+      break;
+    case 1:
+      console.log(spriteAdjacentPosition(sprite, 0, 1));
+      if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) + 1;
+        break;
+      }
+      break;
+    case 2:
+      console.log(spriteAdjacentPosition(sprite, -1, 0));
+      if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridColumnStart =
+          parseInt(sprite.style.gridColumnStart) - 1;
+        break;
+      }
+      break;
+    case 3:
+      console.log(spriteAdjacentPosition(sprite, 1, 0));
+      if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridColumnStart =
+          parseInt(sprite.style.gridColumnStart) + 1;
+        break;
+      }
+      break;
+    default:
+      return;
+  }
+};
 
 const moveFunc = (e) => {
   switch (e.key) {
