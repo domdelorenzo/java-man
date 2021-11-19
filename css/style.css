@@ -2,22 +2,35 @@
   display:grid;
   grid-template-columns: 1f;
   grid-template-rows: 1f 1f;
+
 }
 .map{
   display:grid;
   grid-template-columns: repeat(10,40px);
   grid-template-rows: repeat(10,40px);
   position: absolute;
+  background: #000000;
+  /* justify-items: center;
+  align-items:center; */
+  /* z-index: -2; */
 }
 .wall{
+  /* position:relative; */
   background:#4783ff;
+  /* z-index: 4; */
 }
 .path{
-  background: #0bcb00;
+  background: #000000;
 }
 .dot {
-  background: #0bcb00;
+  display: grid;
+  justify-items: center;
+  align-items:center;
+  background: #faff8a;
   border-radius: 50%;
+  width: 50%;
+  height: 50%;
+
 }
 
 
@@ -27,13 +40,11 @@
   grid-template-rows: repeat(10,40px);
   position: absolute;
 }
-#sprite {
-  background: #faff8a;
-  /* grid-column-start: 2; */
-  /* grid-column-end: auto; */
-  /* grid-row-start: 2; */
-  /* grid-row-start: auto; */
-  /* grid-area: 2 / 2 / 2 /2; */
+
+
+.sprite {
+  background:url('../resources/pac-man.png');
+  background-size:contain;
 }
 
 .score {
@@ -41,4 +52,9 @@
   position: fixed;
   right:0;
   top:0;
+}
+
+.ghost {
+  background:url('../resources/ghost-sprite.png');
+  background-size:contain;
 }
