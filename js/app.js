@@ -3,6 +3,7 @@
 const player = document.getElementById(`sprite`);
 const enemy = document.getElementById(`ghost`);
 let gameActive = true;
+let levelWin = 0;
 const dotArray = [
   `2_3`,
   `2_2`,
@@ -131,7 +132,6 @@ const ghostMove = (sprite) => {
   if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
     choiceArray.splice(choiceArray.indexOf(3), 1);
   }
-  console.log(choiceArray);
   //set switch options from available paths
   let randomChoice = Math.floor(Math.random() * choiceArray.length);
   switch (choiceArray[randomChoice]) {
@@ -177,7 +177,7 @@ const ghostMove = (sprite) => {
 const moveFunc = (e) => {
   switch (e.key) {
     case `ArrowUp`:
-      console.log(adjacentPosition(0, -1));
+      // console.log(adjacentPosition(0, -1));
       if (adjacentPosition(0, -1) === `wall`) {
         return;
       } else {
@@ -186,7 +186,7 @@ const moveFunc = (e) => {
       }
       break;
     case `ArrowDown`:
-      console.log(adjacentPosition(0, 1));
+      // console.log(adjacentPosition(0, 1));
       if (adjacentPosition(0, 1) === `wall`) {
         return;
       } else {
@@ -195,7 +195,7 @@ const moveFunc = (e) => {
       }
       break;
     case `ArrowLeft`:
-      console.log(adjacentPosition(-1, 0));
+      // console.log(adjacentPosition(-1, 0));
       if (adjacentPosition(-1, 0) === `wall`) {
         return;
       } else {
@@ -205,7 +205,7 @@ const moveFunc = (e) => {
       }
       break;
     case `ArrowRight`:
-      console.log(adjacentPosition(1, 0));
+      // console.log(adjacentPosition(1, 0));
       if (adjacentPosition(1, 0) === `wall`) {
         return;
       } else {
@@ -218,6 +218,7 @@ const moveFunc = (e) => {
       return;
   }
   eatDot(getPosition());
+  levelWinCheck();
 };
 
 const ghostAi = () => {
@@ -231,15 +232,20 @@ const ghostPace = () => {
 };
 
 ghostPace();
-// const AI = () => {
-// while (gameActive) {
-//   setTimeout(ghostMove(enemy), 3000);
-// setTimeout(ghostMove(enemy), 3000);
-// }
-// };
 
-// setTimeout(AI(), 10000);
+/*Game win/lose checking*/
 
+const levelWinCheck = () => {
+  let remainingDots = document.querySelectorAll(`.dot`);
+  if (remainingDots.length === 0) {
+    levelWin++;
+    gameActive = false;
+  }
+};
+
+const gameOver = () => {
+  alert(`uh oh, you lost`);
+};
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
 // document.addEventListener(`keydown`, ghostPace);
