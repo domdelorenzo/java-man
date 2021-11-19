@@ -2,11 +2,9 @@
 //constant to identify player sprite with CSS class
 const player = document.getElementById(`sprite`);
 const enemy = document.getElementById(`ghost`);
-
+let gameActive = true;
 const dotArray = [
-  `1_2`,
-  `1_3`,
-  `1_4`,
+  `2_3`,
   `2_2`,
   `2_4`,
   `2_5`,
@@ -17,7 +15,12 @@ const dotArray = [
   `3_9`,
   `4_9`,
   `5_9`,
-  `6_9`
+  `6_9`,
+  `7_9`,
+  `8_9`,
+  `9_9`,
+  `9_8`,
+  `9_7`
 ];
 let score = 0;
 /* define functions here */
@@ -95,6 +98,7 @@ const spriteAdjacentPosition = (sprite, a, b) => {
 
 //* directional functions*//
 
+//ghost move function
 const ghostMove = (sprite) => {
   switch (Math.floor(Math.random() * 4)) {
     case 0:
@@ -186,8 +190,29 @@ const moveFunc = (e) => {
   eatDot(getPosition());
 };
 
+const ghostAi = () => {
+  // while (gameActive) {
+  ghostMove(enemy);
+  // }
+  // alert(`ghostAI`);
+};
+const ghostPace = () => {
+  setInterval(ghostAi, 1000);
+};
+
+ghostPace();
+// const AI = () => {
+// while (gameActive) {
+//   setTimeout(ghostMove(enemy), 3000);
+// setTimeout(ghostMove(enemy), 3000);
+// }
+// };
+
+// setTimeout(AI(), 10000);
+
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
+// document.addEventListener(`keydown`, ghostPace);
 
 /* test function to log keystrokes
 const log = document.getElementById('log');
