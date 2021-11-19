@@ -2,8 +2,8 @@
 //constant to identify player sprite with CSS class
 const player = document.getElementById(`sprite`);
 
-const dotArray = [`1_2`, `1_3`, `1_4`, `2_4`];
-
+const dotArray = [`1_2`, `1_3`, `1_4`, `2_2`, `2_4`, `2_5`, `3_5`];
+let score = 0;
 /* define functions here */
 //set sprite initial position
 const initialPosition = () => {
@@ -22,6 +22,7 @@ const eatDot = (coord) => {
   let currentSquare = document.getElementById(coord);
   if ((currentSquare.className = coord)) {
     currentSquare.className = `path`;
+    incrementScore();
   }
 };
 /* Generate Grid*/
@@ -58,6 +59,10 @@ const gridMaker = (x, y) => {
     }
   }
   // document.querySelector(`.map`).insertAdjacentHTML(`afterbegin`,`<div class="dot"></div>`)
+};
+const incrementScore = () => {
+  score++;
+  document.querySelector(`.score`).innerText = score;
 };
 
 gridMaker(11, 11);
