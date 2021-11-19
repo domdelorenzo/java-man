@@ -11,6 +11,19 @@ const initialPosition = () => {
   player.style.gridRowStart = 2;
 };
 initialPosition();
+
+const getPosition = () => {
+  let x = document.querySelector(`.sprite`).style.gridColumnStart;
+  let y = document.querySelector(`.sprite`).style.gridRowStart;
+  return `${y}_${x}`;
+};
+
+const eatDot = (coord) => {
+  let currentSquare = document.getElementById(coord);
+  if ((currentSquare.className = coord)) {
+    currentSquare.className = `path`;
+  }
+};
 /* Generate Grid*/
 // const newDiv = document.createElement(`div`);
 // const board = document.querySelector(`.map`);
@@ -26,12 +39,12 @@ initialPosition();
 // board.appendChild.newDiv;
 
 const gridMaker = (x, y) => {
-  for (let i = 0; i < x; i++) {
-    for (let j = 0; j < y; j++) {
+  for (let i = 1; i < x; i++) {
+    for (let j = 1; j < y; j++) {
       document
         .querySelector(`.map`)
         .insertAdjacentHTML(
-          `afterbegin`,
+          `beforeend`,
           `<div class="wall" id ="${i}_${j}"></div>`
         );
       // let newDiv = document.createElement(`div`);
@@ -47,7 +60,7 @@ const gridMaker = (x, y) => {
   // document.querySelector(`.map`).insertAdjacentHTML(`afterbegin`,`<div class="dot"></div>`)
 };
 
-gridMaker(30, 30);
+gridMaker(11, 11);
 
 const layDots = (arr) => {
   for (let i = 0; i < arr.length; i++) {
@@ -76,6 +89,7 @@ const moveFunc = (e) => {
     default:
       return;
   }
+  eatDot(getPosition());
 };
 
 /* add eventListeners here */

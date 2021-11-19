@@ -3,8 +3,8 @@
 }
 .map{
   display:grid;
-  grid-template-columns: repeat(30,40px);
-  grid-template-rows: repeat(30,40px);
+  grid-template-columns: repeat(10,40px);
+  grid-template-rows: repeat(10,40px);
   position: absolute;
 }
 .wall{
@@ -20,8 +20,8 @@
 
 .overlay{
   display:grid;
-  grid-template-columns: repeat(30,40px);
-  grid-template-rows: repeat(30,40px);
+  grid-template-columns: repeat(10,40px);
+  grid-template-rows: repeat(10,40px);
   position: absolute;
 }
 #sprite {
