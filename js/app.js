@@ -1,6 +1,19 @@
 /* define constants here */
-//constant to identify player sprite with CSS class
-const player = document.getElementById(`sprite`);
+
+//constant to identify player cell with CSS class
+const player = document.getElementById(`player`);
+/* ghost Class */
+
+class Ghost {
+  constructor(type) {
+    this.type = type;
+  }
+  ghostPositionStart() {
+    this.style.gridColumnStart = 9;
+    this.style.gridRowStart = 2;
+  }
+}
+
 const enemy = document.getElementById(`ghost`);
 let gameActive = true;
 let levelWin = 0;
@@ -347,7 +360,7 @@ const dotArray = [
 ];
 let score = 0;
 /* define functions here */
-//set sprite initial position
+//set player initial position
 const initialPosition = () => {
   player.style.gridColumnStart = 2;
   player.style.gridRowStart = 2;
@@ -369,8 +382,8 @@ const getSpritePosition = (sprite) => {
 
 // retrieve player position at any time
 const getPosition = () => {
-  let x = document.querySelector(`.sprite`).style.gridColumnStart;
-  let y = document.querySelector(`.sprite`).style.gridRowStart;
+  let x = document.querySelector(`.player`).style.gridColumnStart;
+  let y = document.querySelector(`.player`).style.gridRowStart;
   return `${y}_${x}`;
 };
 // change dots to blank background and increment score
@@ -412,8 +425,8 @@ layDots(dotArray);
 /* detect walls */
 //get class of adjacent square
 const adjacentPosition = (a, b) => {
-  let x = parseInt(document.querySelector(`.sprite`).style.gridColumnStart) + a;
-  let y = parseInt(document.querySelector(`.sprite`).style.gridRowStart) + b;
+  let x = parseInt(document.querySelector(`.player`).style.gridColumnStart) + a;
+  let y = parseInt(document.querySelector(`.player`).style.gridRowStart) + b;
   let adjSquareID = `${y}_${x}`;
   return document.getElementById(adjSquareID).className;
 };
@@ -567,37 +580,3 @@ const gameOver = () => {
 };
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
-// document.addEventListener(`keydown`, ghostPace);
-
-/* test function to log keystrokes
-const log = document.getElementById('log');
-function logKey(e) {
-  console.log(` ${e.code}`);
-}
-
-document.addEventListener('keydown', logKey);
-*/
-
-/* Generate Grid*/
-// const newDiv = document.createElement(`div`);
-// const board = document.querySelector(`.map`);
-// newDiv.setAttribute('id', '1_1');
-// board.appendChild.newDiv;
-// const newDiv = document.createElement(`div`);
-// const board = document.querySelector(`.map`);
-// newDiv.setAttribute('id', '1_2');
-// board.appendChild.newDiv;
-// const newDiv = document.createElement(`div`);
-// const board = document.querySelector(`.map`);
-// newDiv.setAttribute('id', '1_3');
-// board.appendChild.newDiv;
-// let newDiv = document.createElement(`div`);
-// newDiv.setAttribute('id', `${i}_${j}`);
-// // newDiv.className = 'dot';
-// // newDiv.style.gridRowStart = y + 1;
-// // newDiv.style.gridColumnStart = x + 1;
-// console.log('new div created');
-// document.querySelector(`.map`).appendChild.newDiv;
-// // document.querySelector(`.map`).insertAdjacentHTML(`afterbegin`,`<div class="dot"></div>`)
-
-// document.querySelector(`.map`).insertAdjacentHTML(`afterbegin`,`<div class="dot"></div>`)

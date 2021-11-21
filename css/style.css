@@ -48,7 +48,7 @@
 }
 
 
-.sprite {
+.player {
   background:url('../resources/pac-man.png');
   background-size:contain;
 }
