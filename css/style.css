@@ -60,7 +60,26 @@
   top:0;
 }
 
-.ghost {
+#ghost {
   background:url('../resources/ghost-sprite.png');
+  background-size:contain;
+}
+
+#redGhost {
+  background:url('../resources/redGhost.png');
+  background-size:contain;
+}
+#blueGhost {
+  background:url('../resources/blueGhost.png');
+  background-size:contain;
+}
+
+#greenGhost {
+  background:url('../resources/greenGhost.png');
+  background-size:contain;
+}
+
+#pinkGhost {
+  background:url('../resources/pinkGhost.png');
   background-size:contain;
 }

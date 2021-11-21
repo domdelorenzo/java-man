@@ -9,10 +9,35 @@ class Ghost {
     this.type = type;
   }
   ghostPositionStart() {
-    this.style.gridColumnStart = 9;
-    this.style.gridRowStart = 2;
+    document.getElementById(`${this.type}`).style.gridColumnStart = 9;
+    document.getElementById(`${this.type}`).style.gridRowStart = 2;
+  }
+  createGhost() {
+    document
+      .querySelector(`.overlay`)
+      .insertAdjacentHTML(
+        `beforeend`,
+        `<div class="ghost" id ="${this.type}"></div>`
+      );
+  }
+
+  ghostPositionCurrent() {
+    document.getElementById(`${this.type}`).style.gridColumnStart = 9;
+    document.getElementById(`${this.type}`).style.gridRowStart = 2;
   }
 }
+
+const red = new Ghost(`redGhost`);
+red.createGhost();
+red.ghostPositionStart();
+
+const orange = new Ghost(`orangeGhost`);
+orange.createGhost();
+orange.ghostPositionStart();
+
+const pink = new Ghost(`pinkGhost`);
+pink.createGhost();
+pink.ghostPositionStart();
 
 const enemy = document.getElementById(`ghost`);
 let gameActive = true;
@@ -570,9 +595,12 @@ const levelWinCheck = () => {
 };
 
 const deathCheck = () => {
-  if (getPosition() === getSpritePosition(enemy)) {
-    alert(`uh oh, you lost`);
-    gameActive = false;
+  let ghostArray = document.querySelectorAll(`.ghost`);
+  for (let i = 0; i < ghostArray.length; i++) {
+    if (getPosition() === getSpritePosition(ghostArray[i])) {
+      alert(`uh oh, you lost`);
+      gameActive = false;
+    }
   }
 };
 const gameOver = () => {
