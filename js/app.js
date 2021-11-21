@@ -573,13 +573,13 @@ const moveFunc = (e) => {
 };
 
 const ghostAi = () => {
-  // while (gameActive) {
-  ghostMove(enemy);
-  // }
-  // alert(`ghostAI`);
+  let ghostArray = document.querySelectorAll(`.ghost`);
+  for (let i = 0; i < ghostArray.length; i++) {
+    ghostMove(ghostArray[i]);
+  }
 };
 const ghostPace = () => {
-  setInterval(ghostAi, 1000);
+  setInterval(ghostAi, 500);
 };
 
 ghostPace();
