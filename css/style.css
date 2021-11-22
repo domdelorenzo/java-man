@@ -83,3 +83,13 @@
   background:url('../resources/pinkGhost.png');
   background-size:contain;
 }
+
+#orangeGhost {
+  background:url('../resources/orangeGhost.png');
+  background-size:contain;
+}
+
+#turquoiseGhost {
+  background:url('../resources/turquoiseGhost.png');
+  background-size:contain;
+}

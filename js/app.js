@@ -8,9 +8,9 @@ class Ghost {
   constructor(type) {
     this.type = type;
   }
-  ghostPositionStart() {
-    document.getElementById(`${this.type}`).style.gridColumnStart = 9;
-    document.getElementById(`${this.type}`).style.gridRowStart = 2;
+  ghostPositionStart(x, y) {
+    document.getElementById(`${this.type}`).style.gridColumnStart = x;
+    document.getElementById(`${this.type}`).style.gridRowStart = y;
   }
   createGhost() {
     document
@@ -29,17 +29,21 @@ class Ghost {
 
 const red = new Ghost(`redGhost`);
 red.createGhost();
-red.ghostPositionStart();
+red.ghostPositionStart(14, 13);
 
 const orange = new Ghost(`orangeGhost`);
 orange.createGhost();
-orange.ghostPositionStart();
+orange.ghostPositionStart(16, 13);
 
 const pink = new Ghost(`pinkGhost`);
 pink.createGhost();
-pink.ghostPositionStart();
+pink.ghostPositionStart(15, 13);
 
-const enemy = document.getElementById(`ghost`);
+const turquoise = new Ghost(`turquoiseGhost`);
+turquoise.createGhost();
+turquoise.ghostPositionStart(13, 13);
+
+// const enemy = document.getElementById(`ghost`);
 let gameActive = true;
 let levelWin = 0;
 
@@ -166,26 +170,10 @@ const dotArray = [
   `12_22`,
   `13_7`,
   `13_10`,
-  `13_11`,
-  `13_12`,
-  `13_13`,
-  `13_14`,
-  `13_15`,
-  `13_16`,
-  `13_17`,
-  `13_18`,
   `13_19`,
   `13_22`,
   `14_7`,
   `14_10`,
-  `14_11`,
-  `14_12`,
-  `14_13`,
-  `14_14`,
-  `14_15`,
-  `14_16`,
-  `14_17`,
-  `14_18`,
   `14_19`,
   `14_22`,
   `15_2`,
@@ -197,14 +185,6 @@ const dotArray = [
   `15_8`,
   `15_9`,
   `15_10`,
-  `15_11`,
-  `15_12`,
-  `15_13`,
-  `15_14`,
-  `15_15`,
-  `15_16`,
-  `15_17`,
-  `15_18`,
   `15_19`,
   `15_20`,
   `15_21`,
@@ -216,26 +196,10 @@ const dotArray = [
   `15_27`,
   `16_7`,
   `16_10`,
-  `16_11`,
-  `16_12`,
-  `16_13`,
-  `16_14`,
-  `16_15`,
-  `16_16`,
-  `16_17`,
-  `16_18`,
   `16_19`,
   `16_22`,
   `17_7`,
   `17_10`,
-  `17_11`,
-  `17_12`,
-  `17_13`,
-  `17_14`,
-  `17_15`,
-  `17_16`,
-  `17_17`,
-  `17_18`,
   `17_19`,
   `17_22`,
   `18_7`,
@@ -383,20 +347,23 @@ const dotArray = [
   `30_26`,
   `30_27`
 ];
+
+const gateArray = [  `15_1`,`15_28`]
 let score = 0;
 /* define functions here */
 //set player initial position
 const initialPosition = () => {
-  player.style.gridColumnStart = 2;
-  player.style.gridRowStart = 2;
+  player.style.gridColumnStart = 13;
+  player.style.gridRowStart = 21;
 };
 initialPosition();
 
-const enemyPosition = () => {
-  enemy.style.gridColumnStart = 9;
-  enemy.style.gridRowStart = 2;
-};
-enemyPosition();
+/* no longer using enemy classification*/
+// const enemyPosition = () => {
+//   enemy.style.gridColumnStart = 9;
+//   enemy.style.gridRowStart = 2;
+// };
+// enemyPosition();
 
 //retrieve any sprite position at any time
 const getSpritePosition = (sprite) => {
@@ -438,6 +405,15 @@ const gridMaker = (x, y) => {
 };
 
 gridMaker(32, 29);
+
+const gateSetup = (arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    document.getElementById(arr[i]).setAttribute('class', 'gate');
+  }
+}
+
+gateSetup(gateArray)
+
 /* establish dots*/
 const layDots = (arr) => {
   for (let i = 0; i < arr.length; i++) {
@@ -464,6 +440,105 @@ const spriteAdjacentPosition = (sprite, a, b) => {
 };
 
 //* directional functions*//
+
+const playerXCoord = () => {
+  return player.style.gridColumnStart;
+};
+const playerYCoord = () => {
+  return player.style.gridRowStart;
+};
+
+const ghostXCoord = (sprite) => {
+  return sprite.style.gridColumnStart;
+};
+const ghostYCoord = (sprite) => {
+  return sprite.style.gridRowStart;
+};
+const smartGhostMove = (sprite) => {
+  let choiceArray = [0, 1, 2, 3];
+  if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(0), 1);
+  }
+  if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(1), 1);
+  }
+  if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(2), 1);
+  }
+  if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+    choiceArray.splice(choiceArray.indexOf(3), 1);
+  }
+  let smartChoice = 0;
+
+  if (
+    playerXCoord() < ghostXCoord(sprite) &&
+    !(spriteAdjacentPosition(sprite, -1, 0) === `wall`)
+  ) {
+    console.log(`${sprite} left`);
+    smartChoice = 2;
+  } else if (
+    playerXCoord() > ghostXCoord(sprite) &&
+    !(spriteAdjacentPosition(sprite, 1, 0) === `wall`)
+  ) {
+    console.log(`${sprite} right`);
+    smartChoice = 3;
+  } else if (
+    playerYCoord() < ghostYCoord(sprite) &&
+    !(spriteAdjacentPosition(sprite, 0, -1) === `wall`)
+  ) {
+    console.log(`${sprite} up`);
+    smartChoice = 0;
+  } else if (
+    playerYCoord() > ghostYCoord(sprite) &&
+    !(spriteAdjacentPosition(sprite, 0, 1) === `wall`)
+  ) {
+    console.log(`${sprite} down`);
+    smartChoice = 1;
+  } else {
+    console.log(`random`);
+    smartChoice = Math.floor(Math.random() * choiceArray.length);
+  }
+
+  switch (smartChoice) {
+    case 0:
+      if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) - 1;
+        break;
+      }
+      break;
+    case 1:
+      if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) + 1;
+        break;
+      }
+      break;
+    case 2:
+      if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridColumnStart =
+          parseInt(sprite.style.gridColumnStart) - 1;
+        break;
+      }
+      break;
+    case 3:
+      if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+        return;
+      } else {
+        sprite.style.gridColumnStart =
+          parseInt(sprite.style.gridColumnStart) + 1;
+        break;
+      }
+      break;
+    default:
+      return;
+  }
+  deathCheck();
+};
 
 //ghost move function
 const ghostMove = (sprite) => {
@@ -546,7 +621,10 @@ const moveFunc = (e) => {
       break;
     case `ArrowLeft`:
       // console.log(adjacentPosition(-1, 0));
-      if (adjacentPosition(-1, 0) === `wall`) {
+      if (adjacentPosition(-1, 0) === `gate`){
+        player.style.gridColumnStart = 27;
+        player.style.gridRowStart = 15;
+      }else if (adjacentPosition(-1, 0) === `wall`) {
         return;
       } else {
         player.style.gridColumnStart =
@@ -556,7 +634,10 @@ const moveFunc = (e) => {
       break;
     case `ArrowRight`:
       // console.log(adjacentPosition(1, 0));
-      if (adjacentPosition(1, 0) === `wall`) {
+      if (adjacentPosition(1, 0) === `gate`) {
+        player.style.gridColumnStart = 2;
+        player.style.gridRowStart = 15;
+      } else if (adjacentPosition(1, 0) === `wall`) {
         return;
       } else {
         player.style.gridColumnStart =
@@ -569,6 +650,18 @@ const moveFunc = (e) => {
   }
   eatDot(getPosition());
   deathCheck();
+  () => {
+    if (getPosition()= `15_1`){
+      player.style.gridColumnStart = 15;
+      player.style.gridRowStart = 29;
+    }
+
+    if (getPosition()= `15_30`){
+      player.style.gridColumnStart = 15;
+      player.style.gridRowStart = 2;
+    }
+  }
+
   levelWinCheck();
 };
 
