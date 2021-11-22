@@ -563,6 +563,13 @@ const ghostMove = (sprite) => {
       if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
         return;
       } else {
+        sprite.animate(
+          [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
         sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) - 1;
         break;
       }
@@ -571,6 +578,14 @@ const ghostMove = (sprite) => {
       if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
         return;
       } else {
+        sprite.animate(
+          [{ transform: `translateY(-100%)` }, { transform: `translateY(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
+
         sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) + 1;
         break;
       }
@@ -582,6 +597,14 @@ const ghostMove = (sprite) => {
       } else if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
         return;
       } else {
+        sprite.animate(
+          [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
+
         sprite.style.gridColumnStart =
           parseInt(sprite.style.gridColumnStart) - 1;
         break;
@@ -594,6 +617,14 @@ const ghostMove = (sprite) => {
       } else if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
         return;
       } else {
+        sprite.animate(
+          [{ transform: `translateX(-100%)` }, { transform: `translateX(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
+
         sprite.style.gridColumnStart =
           parseInt(sprite.style.gridColumnStart) + 1;
         break;
@@ -694,7 +725,7 @@ const ghostAi = () => {
   }
 };
 const ghostPace = () => {
-  setInterval(ghostAi, 500);
+  setInterval(ghostAi, 250);
 };
 
 ghostPace();
