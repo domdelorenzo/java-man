@@ -348,7 +348,7 @@ const dotArray = [
   `30_27`
 ];
 
-const gateArray = [  `15_1`,`15_28`]
+const gateArray = [`15_1`, `15_28`];
 let score = 0;
 /* define functions here */
 //set player initial position
@@ -410,9 +410,9 @@ const gateSetup = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     document.getElementById(arr[i]).setAttribute('class', 'gate');
   }
-}
+};
 
-gateSetup(gateArray)
+gateSetup(gateArray);
 
 /* establish dots*/
 const layDots = (arr) => {
@@ -576,7 +576,10 @@ const ghostMove = (sprite) => {
       }
       break;
     case 2:
-      if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+      if (spriteAdjacentPosition(sprite, -1, 0) === `gate`) {
+        sprite.style.gridColumnStart = 2;
+        sprite.style.gridRowStart = 15;
+      } else if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
         return;
       } else {
         sprite.style.gridColumnStart =
@@ -585,7 +588,10 @@ const ghostMove = (sprite) => {
       }
       break;
     case 3:
-      if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+      if (spriteAdjacentPosition(sprite, 1, 0) === `gate`) {
+        sprite.style.gridColumnStart = 27;
+        sprite.style.gridRowStart = 15;
+      } else if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
         return;
       } else {
         sprite.style.gridColumnStart =
@@ -606,6 +612,13 @@ const moveFunc = (e) => {
       if (adjacentPosition(0, -1) === `wall`) {
         return;
       } else {
+        player.animate(
+          [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
         player.style.gridRowStart = parseInt(player.style.gridRowStart) - 1;
         break;
       }
@@ -615,18 +628,32 @@ const moveFunc = (e) => {
       if (adjacentPosition(0, 1) === `wall`) {
         return;
       } else {
+        player.animate(
+          [{ transform: `translateY(-100%)` }, { transform: `translateY(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
         player.style.gridRowStart = parseInt(player.style.gridRowStart) + 1;
         break;
       }
       break;
     case `ArrowLeft`:
       // console.log(adjacentPosition(-1, 0));
-      if (adjacentPosition(-1, 0) === `gate`){
+      if (adjacentPosition(-1, 0) === `gate`) {
         player.style.gridColumnStart = 27;
         player.style.gridRowStart = 15;
-      }else if (adjacentPosition(-1, 0) === `wall`) {
+      } else if (adjacentPosition(-1, 0) === `wall`) {
         return;
       } else {
+        player.animate(
+          [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
         player.style.gridColumnStart =
           parseInt(player.style.gridColumnStart) - 1;
         break;
@@ -640,6 +667,13 @@ const moveFunc = (e) => {
       } else if (adjacentPosition(1, 0) === `wall`) {
         return;
       } else {
+        player.animate(
+          [{ transform: `translateX(-100%)` }, { transform: `translateX(0)` }],
+          {
+            duration: 250,
+            iterations: 1
+          }
+        );
         player.style.gridColumnStart =
           parseInt(player.style.gridColumnStart) + 1;
         break;
@@ -650,18 +684,6 @@ const moveFunc = (e) => {
   }
   eatDot(getPosition());
   deathCheck();
-  () => {
-    if (getPosition()= `15_1`){
-      player.style.gridColumnStart = 15;
-      player.style.gridRowStart = 29;
-    }
-
-    if (getPosition()= `15_30`){
-      player.style.gridColumnStart = 15;
-      player.style.gridRowStart = 2;
-    }
-  }
-
   levelWinCheck();
 };
 
@@ -701,3 +723,31 @@ const gameOver = () => {
 };
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
+
+/* player animation */
+// document.body.addEventListener(`keydown`, (event) => {
+//   switch (event.key){
+//     case `ArrowUp`:
+//       style.top
+//   }
+//   let anim = player.animate(
+//     { transform: `translate(${event.clientX}px, ${event.clientY}px)` },
+//     { duration: 500, fill: 'forwards' }
+//   );
+
+//   anim.commitStyles();
+
+//   //anim.persist()
+
+//   anim.onremove = function () {
+//     console.log('Animation removed');
+//   };
+
+//   console.log(anim.replaceState);
+// });
+
+playerMoveAnim = new AnimationEvent(`animationstart`, {
+  animationName: moveforward,
+  elapsedTime: 0,
+  pseudoElement: ``
+});

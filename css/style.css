@@ -51,6 +51,7 @@
 .player {
   background:url('../resources/pac-man.png');
   background-size:contain;
+  /* animation: 1s linear 1 moveforward */
 }
 
 .score {
@@ -93,3 +94,13 @@
   background:url('../resources/turquoiseGhost.png');
   background-size:contain;
 }
+
+/* @keyframes moveforward {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+} */
