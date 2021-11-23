@@ -558,11 +558,10 @@ const moveFunc = (e) => {
   if (gameActive) {
     switch (e.key) {
       case `ArrowUp`:
-        // console.log(adjacentPosition(0, -1));
         if (adjacentPosition(0, -1) === `wall`) {
           return;
         } else {
-          player.style.transform = `rotate(90deg)`;
+          player.style.animationName = `chomp-up`;
           player.animate(
             [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
             {
@@ -575,11 +574,10 @@ const moveFunc = (e) => {
         }
         break;
       case `ArrowDown`:
-        // console.log(adjacentPosition(0, 1));
         if (adjacentPosition(0, 1) === `wall`) {
           return;
         } else {
-          player.style.transform = `rotate(270deg)`;
+          player.style.animationName = `chomp-down`;
           player.animate(
             [
               { transform: `translateY(-100%)` },
@@ -595,14 +593,13 @@ const moveFunc = (e) => {
         }
         break;
       case `ArrowLeft`:
-        // console.log(adjacentPosition(-1, 0));
         if (adjacentPosition(-1, 0) === `gate`) {
           player.style.gridColumnStart = 27;
           player.style.gridRowStart = 15;
         } else if (adjacentPosition(-1, 0) === `wall`) {
           return;
         } else {
-          player.style.transform = `rotate(0deg)`;
+          player.style.animationName = `chomp`;
           player.animate(
             [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
             {
@@ -616,14 +613,13 @@ const moveFunc = (e) => {
         }
         break;
       case `ArrowRight`:
-        // console.log(adjacentPosition(1, 0));
         if (adjacentPosition(1, 0) === `gate`) {
           player.style.gridColumnStart = 2;
           player.style.gridRowStart = 15;
         } else if (adjacentPosition(1, 0) === `wall`) {
           return;
         } else {
-          player.style.transform = `rotate(180deg)`;
+          player.style.animationName = `chomp-right`;
           player.animate(
             [
               { transform: `translateX(-100%)` },
