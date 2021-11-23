@@ -23,6 +23,7 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ***
 
 ### ***Technologies***
+* HTML
 * CSS
 * JavaScript
 
@@ -30,12 +31,12 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 
 ### ***Roadmap (Future Updates)***
 
-* [ ] animate sprites
+* [x] animate sprites
 * [ ] add 1UP logic
-* [ ] Add darkmode/color theming
+* [x] Add darkmode/color theming
 * [ ] Add sound effects
 * [ ] Add background music
-* [ ] Loop sprite to opposite side when edge is reached
+* [x] Loop sprite to opposite side when edge is reached
 * [ ] Allow users to select number of enemy sprites
 * [ ] Track high score after every death
 * [ ] Add game over after three deaths logic
@@ -60,3 +61,5 @@ Fonts
 
 CSS day/night theme tutorial: 
 https://dev.to/ananyaneogi/create-a-dark-light-mode-switch-with-css-variables-34l8
+https://css-tricks.com/pac-man-in-css/
+https://bennettfeely.com/clippy/

@@ -184,10 +184,20 @@ ul {
 
 
 .player {
-  background:url('../resources/pac-man.png');
+  /* background:url('../resources/pac-man.png'); */
+  /* clip-path: circle(50%); */
+  border-radius: 50%;
+  /* clip-path:circle(50%); */
+  background-color: var(--primary-color);
   background-size:contain;
-  /* animation: 1s linear 1 moveforward */
+  clip-path: polygon(50% 0%, 67% 0, 100% 0, 100% 100%, 61% 100%, 0 100%, 0 94%, 48% 49%, 0 4%, 0 0);
+  animation-name: chomp;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  /* transform: rotate(90deg); */
+
 }
+
 
 
 #ghost {
@@ -222,4 +232,23 @@ ul {
 #turquoiseGhost {
   background:url('../resources/turquoiseGhost.png');
   background-size:contain;
+}
+
+@keyframes chomp {
+  0% {
+    clip-path: (50% 0%, 67% 0, 100% 0, 100% 100%, 61% 100%, 0 100%, 0 94%, 48% 49%, 0 4%, 0 0);
+  }
+  25% {
+    clip-path: polygon(50% 0%, 67% 0, 100% 0, 100% 100%, 61% 100%, 0 100%, 0 71%, 48% 49%, 0 27%, 0 0);
+
+  }
+  50% {
+    clip-path: polygon(50% 0%, 67% 0, 100% 0, 100% 100%, 61% 100%, 0 100%, 0 45%, 48% 49%, 0 50%, 0 0);
+  }
+  75% {
+    clip-path: polygon(50% 0%, 67% 0, 100% 0, 100% 100%, 61% 100%, 0 100%, 0 71%, 48% 49%, 0 27%, 0 0);
+  }
+  100% {
+    clip-path: polygon(50% 0%, 67% 0, 100% 0, 100% 100%, 61% 100%, 0 100%, 0 94%, 48% 49%, 0 4%, 0 0);
+  }
 }

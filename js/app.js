@@ -46,6 +46,10 @@ turquoise.ghostPositionStart(13, 13);
 let gameActive = true;
 let levelWin = 0;
 const replayBttn = document.querySelector('.replay-button');
+const invertedTheme = document.getElementById('inverted');
+const classicTheme = document.getElementById('classic');
+const crtTheme = document.getElementById('crt');
+const nordTheme = document.getElementById('nord');
 
 const dotArray = [
   `2_2`,
@@ -672,10 +676,11 @@ const moveFunc = (e) => {
         if (adjacentPosition(0, -1) === `wall`) {
           return;
         } else {
+          player.style.transform = `rotate(90deg)`;
           player.animate(
             [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
             {
-              duration: 250,
+              duration: 200,
               iterations: 1
             }
           );
@@ -688,13 +693,14 @@ const moveFunc = (e) => {
         if (adjacentPosition(0, 1) === `wall`) {
           return;
         } else {
+          player.style.transform = `rotate(270deg)`;
           player.animate(
             [
               { transform: `translateY(-100%)` },
               { transform: `translateY(0)` }
             ],
             {
-              duration: 250,
+              duration: 200,
               iterations: 1
             }
           );
@@ -710,10 +716,11 @@ const moveFunc = (e) => {
         } else if (adjacentPosition(-1, 0) === `wall`) {
           return;
         } else {
+          player.style.transform = `rotate(0deg)`;
           player.animate(
             [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
             {
-              duration: 250,
+              duration: 200,
               iterations: 1
             }
           );
@@ -730,13 +737,14 @@ const moveFunc = (e) => {
         } else if (adjacentPosition(1, 0) === `wall`) {
           return;
         } else {
+          player.style.transform = `rotate(180deg)`;
           player.animate(
             [
               { transform: `translateX(-100%)` },
               { transform: `translateX(0)` }
             ],
             {
-              duration: 250,
+              duration: 200,
               iterations: 1
             }
           );
@@ -801,14 +809,6 @@ const resetGame = () => {
   document.querySelector(`.win-message`).style.display = `none`;
   gameActive = true;
 };
-/* add eventListeners here */
-document.addEventListener(`keydown`, moveFunc);
-replayBttn.addEventListener(`click`, resetGame);
-
-const invertedTheme = document.getElementById('inverted');
-const classicTheme = document.getElementById('classic');
-const crtTheme = document.getElementById('crt');
-const nordTheme = document.getElementById('nord');
 
 function themeSwitch() {
   switch (this.id) {
@@ -828,6 +828,9 @@ function themeSwitch() {
       return;
   }
 }
+/* add eventListeners here */
+document.addEventListener(`keydown`, moveFunc);
+replayBttn.addEventListener(`click`, resetGame);
 
 invertedTheme.addEventListener('click', themeSwitch);
 classicTheme.addEventListener('click', themeSwitch);
