@@ -31,14 +31,17 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ### ***Roadmap (Future Updates)***
 
 * [x] animate sprites
-* [ ] add 1UP logic
+
 * [x] Add darkmode/color theming
-* [ ] Add sound effects
-* [ ] Add background music
+* [x] Add sound effects
+* [x] Add background music
 * [x] Loop sprite to opposite side when edge is reached
 * [ ] Allow users to select number of enemy sprites
 * [ ] Track high score after every death
-* [ ] Add game over after three deaths logic
+* [ ] Add additional levels
+* [ ] Add multiple lives to each level
+* [ ] add 1UP logic
+* [ ] Add Power Pellet function 
 
 ***
 
@@ -55,7 +58,7 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ### ***Credits***
 **Fonts:** [Press Start P2 on Google Fonts]("https://fonts.google.com/specimen/Press+Start+2P")
 
-**Music:** [Classic Gaming]("https://www.classicgaming.cc/classics/pac-man/sounds") (to be added in a futuer release)
+**Music:** [Classic Gaming]("https://www.classicgaming.cc/classics/pac-man/sounds") 
 
 **Ghost Sprites:** https://flyclipart.com
 

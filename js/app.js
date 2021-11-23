@@ -45,8 +45,9 @@ turquoise.createGhost();
 turquoise.ghostPositionStart(13, 13);
 
 /* Game conditions*/
-let gameActive = true;
+let gameActive = false;
 let levelWin = 0;
+let gameOver = false;
 
 /* Theme constants*/
 const replayBttn = document.querySelector('.replay-button');
@@ -55,6 +56,10 @@ const classicTheme = document.getElementById('classic');
 const crtTheme = document.getElementById('crt');
 const nordTheme = document.getElementById('nord');
 
+/* Sound*/
+const newGameSound = new Audio(`resources/pacman_beginning.wav`);
+const chompSound = new Audio('resources/pacman_chomp.wav');
+const deathSound = new Audio(`resources/pacman_death.wav`);
 /*Map Arrays*/
 const dotArray = [
   `2_2`,
@@ -460,102 +465,111 @@ const ghostYCoord = (sprite) => {
 
 //ghost move function
 const ghostMove = (sprite) => {
-  let choiceArray = [0, 1, 2, 3];
-  //detect available paths and remove invalid options from choiceArray
-  if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(0), 1);
-  }
-  if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(1), 1);
-  }
-  if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(2), 1);
-  }
-  if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(3), 1);
-  }
-  //set switch options from available paths
-  let randomChoice = Math.floor(Math.random() * choiceArray.length);
-  switch (choiceArray[randomChoice]) {
-    case 0:
-      if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
-        return;
-      } else {
-        sprite.animate(
-          [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
-        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) - 1;
+  if (gameActive) {
+    let choiceArray = [0, 1, 2, 3];
+    //detect available paths and remove invalid options from choiceArray
+    if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
+      choiceArray.splice(choiceArray.indexOf(0), 1);
+    }
+    if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
+      choiceArray.splice(choiceArray.indexOf(1), 1);
+    }
+    if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+      choiceArray.splice(choiceArray.indexOf(2), 1);
+    }
+    if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+      choiceArray.splice(choiceArray.indexOf(3), 1);
+    }
+    //set switch options from available paths
+    let randomChoice = Math.floor(Math.random() * choiceArray.length);
+    switch (choiceArray[randomChoice]) {
+      case 0:
+        if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
+          return;
+        } else {
+          sprite.animate(
+            [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
+          sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) - 1;
+          break;
+        }
         break;
-      }
-      break;
-    case 1:
-      if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
-        return;
-      } else {
-        sprite.animate(
-          [{ transform: `translateY(-100%)` }, { transform: `translateY(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
+      case 1:
+        if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
+          return;
+        } else {
+          sprite.animate(
+            [
+              { transform: `translateY(-100%)` },
+              { transform: `translateY(0)` }
+            ],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
 
-        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) + 1;
+          sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) + 1;
+          break;
+        }
         break;
-      }
-      break;
-    case 2:
-      if (spriteAdjacentPosition(sprite, -1, 0) === `gate`) {
-        sprite.style.gridColumnStart = 2;
-        sprite.style.gridRowStart = 15;
-      } else if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
-        return;
-      } else {
-        sprite.animate(
-          [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
+      case 2:
+        if (spriteAdjacentPosition(sprite, -1, 0) === `gate`) {
+          sprite.style.gridColumnStart = 2;
+          sprite.style.gridRowStart = 15;
+        } else if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
+          return;
+        } else {
+          sprite.animate(
+            [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
 
-        sprite.style.gridColumnStart =
-          parseInt(sprite.style.gridColumnStart) - 1;
+          sprite.style.gridColumnStart =
+            parseInt(sprite.style.gridColumnStart) - 1;
+          break;
+        }
         break;
-      }
-      break;
-    case 3:
-      if (spriteAdjacentPosition(sprite, 1, 0) === `gate`) {
-        sprite.style.gridColumnStart = 27;
-        sprite.style.gridRowStart = 15;
-      } else if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
-        return;
-      } else {
-        sprite.animate(
-          [{ transform: `translateX(-100%)` }, { transform: `translateX(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
+      case 3:
+        if (spriteAdjacentPosition(sprite, 1, 0) === `gate`) {
+          sprite.style.gridColumnStart = 27;
+          sprite.style.gridRowStart = 15;
+        } else if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
+          return;
+        } else {
+          sprite.animate(
+            [
+              { transform: `translateX(-100%)` },
+              { transform: `translateX(0)` }
+            ],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
 
-        sprite.style.gridColumnStart =
-          parseInt(sprite.style.gridColumnStart) + 1;
+          sprite.style.gridColumnStart =
+            parseInt(sprite.style.gridColumnStart) + 1;
+          break;
+        }
         break;
-      }
-      break;
-    default:
-      return;
+      default:
+        return;
+    }
+    deathCheck();
   }
-  deathCheck();
 };
 
 const moveFunc = (e) => {
   if (gameActive) {
+    chompSound.play();
     switch (e.key) {
       case `ArrowUp`:
         if (adjacentPosition(0, -1) === `wall`) {
@@ -663,7 +677,9 @@ const levelWinCheck = () => {
     levelWin++;
     document.querySelector(`.game-message`).style.display = `grid`;
     document.querySelector(`.win-message`).style.display = `grid`;
+    document.querySelector(`.replay-button`).style.display = `grid`;
     gameActive = false;
+    gameOver = true;
   }
 };
 
@@ -671,9 +687,12 @@ const deathCheck = () => {
   let ghostArray = document.querySelectorAll(`.ghost`);
   for (let i = 0; i < ghostArray.length; i++) {
     if (getPosition() === getSpritePosition(ghostArray[i])) {
+      deathSound.play();
       document.querySelector(`.game-message`).style.display = `grid`;
       document.querySelector(`.game-over`).style.display = `grid`;
+      document.querySelector(`.replay-button`).style.display = `grid`;
       gameActive = false;
+      gameOver = true;
     }
   }
 };
@@ -686,10 +705,13 @@ const resetGame = () => {
   turquoise.ghostPositionStart(13, 13);
   layDots(dotArray);
   score = 0;
-  document.querySelector(`.game-message`).style.display = `none`;
+  document.querySelector(`.game-message`).style.display = `grid`;
   document.querySelector(`.game-over`).style.display = `none`;
   document.querySelector(`.win-message`).style.display = `none`;
-  gameActive = true;
+  document.querySelector(`.replay-button`).style.display = `none`;
+  document.querySelector(`.new-game`).style.display = `grid`;
+  // gameActive = true;
+  gameOver = false;
 };
 
 function themeSwitch() {
@@ -710,8 +732,22 @@ function themeSwitch() {
       return;
   }
 }
+const startBttn = document.querySelector(`.start-button`);
+const newGameFunc = () => {
+  if (gameActive === false && gameOver === false) {
+    newGameSound.play();
+    gameActive = true;
+    document.querySelector(`.game-message`).style.display = `none`;
+    document.querySelector(`.game-over`).style.display = `none`;
+    document.querySelector(`.win-message`).style.display = `none`;
+    document.querySelector(`.new-game`).style.display = `none`;
+  }
+};
 /* add eventListeners here */
+document.addEventListener(`keydown`, newGameFunc);
+
 document.addEventListener(`keydown`, moveFunc);
+
 replayBttn.addEventListener(`click`, resetGame);
 invertedTheme.addEventListener('click', themeSwitch);
 classicTheme.addEventListener('click', themeSwitch);
