@@ -43,9 +43,9 @@ const turquoise = new Ghost(`turquoiseGhost`);
 turquoise.createGhost();
 turquoise.ghostPositionStart(13, 13);
 
-// const enemy = document.getElementById(`ghost`);
 let gameActive = true;
 let levelWin = 0;
+const replayBttn = document.querySelector('.replay-button');
 
 const dotArray = [
   `2_2`,
@@ -358,13 +358,6 @@ const initialPosition = () => {
 };
 initialPosition();
 
-/* no longer using enemy classification*/
-// const enemyPosition = () => {
-//   enemy.style.gridColumnStart = 9;
-//   enemy.style.gridRowStart = 2;
-// };
-// enemyPosition();
-
 //retrieve any sprite position at any time
 const getSpritePosition = (sprite) => {
   let x = sprite.style.gridColumnStart;
@@ -422,6 +415,41 @@ const layDots = (arr) => {
 };
 
 layDots(dotArray);
+
+// const drawBorder = () => {
+//   let wallArray = document.getElementsByClassName(`wall`);
+//   for (let i = 32; i < wallArray.length - 40; i++) {
+//     let x = wallArray[i].id[2];
+//     let y = wallArray[i].id[0];
+//     let bottomCell = document.getElementById(`${y + 1}_${x}`);
+//     let topCell = document.getElementById(`${y - 1}_${x}`);
+//     let leftCell = document.getElementById(`${y}_${x - 1}`);
+//     let rightCell = document.getElementById(`${y}_${x + 1}`);
+//     if (topCell !== null) {
+//       if (topCell.className === `dot`) {
+//         wallArray[i].classList.add(`top-border`);
+//       }
+//     }
+//     if (bottomCell !== null) {
+//       if (bottomCell.className === `dot`) {
+//         wallArray[i].classList.add(`bottom-border`);
+//       }
+//     }
+//     if (rightCell !== null) {
+//       if (rightCell.className === `dot`) {
+//         wallArray[i].classList.add(`right-border`);
+//       }
+//     }
+
+//     if (leftCell !== null) {
+//       if (leftCell.className === `dot`) {
+//         wallArray[i].classList.add(`left-border`);
+//       }
+//     }
+//   }
+// };
+
+// drawBorder();
 
 /* detect walls */
 //get class of adjacent square
@@ -637,87 +665,94 @@ const ghostMove = (sprite) => {
 };
 
 const moveFunc = (e) => {
-  switch (e.key) {
-    case `ArrowUp`:
-      // console.log(adjacentPosition(0, -1));
-      if (adjacentPosition(0, -1) === `wall`) {
-        return;
-      } else {
-        player.animate(
-          [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
-        player.style.gridRowStart = parseInt(player.style.gridRowStart) - 1;
+  if (gameActive) {
+    switch (e.key) {
+      case `ArrowUp`:
+        // console.log(adjacentPosition(0, -1));
+        if (adjacentPosition(0, -1) === `wall`) {
+          return;
+        } else {
+          player.animate(
+            [{ transform: `translateY(100%)` }, { transform: `translateY(0)` }],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
+          player.style.gridRowStart = parseInt(player.style.gridRowStart) - 1;
+          break;
+        }
         break;
-      }
-      break;
-    case `ArrowDown`:
-      // console.log(adjacentPosition(0, 1));
-      if (adjacentPosition(0, 1) === `wall`) {
-        return;
-      } else {
-        player.animate(
-          [{ transform: `translateY(-100%)` }, { transform: `translateY(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
-        player.style.gridRowStart = parseInt(player.style.gridRowStart) + 1;
+      case `ArrowDown`:
+        // console.log(adjacentPosition(0, 1));
+        if (adjacentPosition(0, 1) === `wall`) {
+          return;
+        } else {
+          player.animate(
+            [
+              { transform: `translateY(-100%)` },
+              { transform: `translateY(0)` }
+            ],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
+          player.style.gridRowStart = parseInt(player.style.gridRowStart) + 1;
+          break;
+        }
         break;
-      }
-      break;
-    case `ArrowLeft`:
-      // console.log(adjacentPosition(-1, 0));
-      if (adjacentPosition(-1, 0) === `gate`) {
-        player.style.gridColumnStart = 27;
-        player.style.gridRowStart = 15;
-      } else if (adjacentPosition(-1, 0) === `wall`) {
-        return;
-      } else {
-        player.animate(
-          [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
-        player.style.gridColumnStart =
-          parseInt(player.style.gridColumnStart) - 1;
+      case `ArrowLeft`:
+        // console.log(adjacentPosition(-1, 0));
+        if (adjacentPosition(-1, 0) === `gate`) {
+          player.style.gridColumnStart = 27;
+          player.style.gridRowStart = 15;
+        } else if (adjacentPosition(-1, 0) === `wall`) {
+          return;
+        } else {
+          player.animate(
+            [{ transform: `translateX(100%)` }, { transform: `translateX(0)` }],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
+          player.style.gridColumnStart =
+            parseInt(player.style.gridColumnStart) - 1;
+          break;
+        }
         break;
-      }
-      break;
-    case `ArrowRight`:
-      // console.log(adjacentPosition(1, 0));
-      if (adjacentPosition(1, 0) === `gate`) {
-        player.style.gridColumnStart = 2;
-        player.style.gridRowStart = 15;
-      } else if (adjacentPosition(1, 0) === `wall`) {
-        return;
-      } else {
-        player.animate(
-          [{ transform: `translateX(-100%)` }, { transform: `translateX(0)` }],
-          {
-            duration: 250,
-            iterations: 1
-          }
-        );
-        player.style.gridColumnStart =
-          parseInt(player.style.gridColumnStart) + 1;
+      case `ArrowRight`:
+        // console.log(adjacentPosition(1, 0));
+        if (adjacentPosition(1, 0) === `gate`) {
+          player.style.gridColumnStart = 2;
+          player.style.gridRowStart = 15;
+        } else if (adjacentPosition(1, 0) === `wall`) {
+          return;
+        } else {
+          player.animate(
+            [
+              { transform: `translateX(-100%)` },
+              { transform: `translateX(0)` }
+            ],
+            {
+              duration: 250,
+              iterations: 1
+            }
+          );
+          player.style.gridColumnStart =
+            parseInt(player.style.gridColumnStart) + 1;
+          break;
+        }
         break;
-      }
-      break;
-    default:
-      return;
+      default:
+        return;
+    }
+    eatDot(getPosition());
+    deathCheck();
+    levelWinCheck();
   }
-  eatDot(getPosition());
-  deathCheck();
-  levelWinCheck();
 };
-
 const ghostAi = () => {
   let ghostArray = document.querySelectorAll(`.ghost`);
   for (let i = 0; i < ghostArray.length; i++) {
@@ -725,7 +760,7 @@ const ghostAi = () => {
   }
 };
 const ghostPace = () => {
-  setInterval(ghostAi, 250);
+  setInterval(ghostAi, 1000);
 };
 
 ghostPace();
@@ -736,6 +771,8 @@ const levelWinCheck = () => {
   let remainingDots = document.querySelectorAll(`.dot`);
   if (remainingDots.length === 0) {
     levelWin++;
+    document.querySelector(`.game-message`).style.display = `grid`;
+    document.querySelector(`.win-message`).style.display = `grid`;
     gameActive = false;
   }
 };
@@ -744,41 +781,26 @@ const deathCheck = () => {
   let ghostArray = document.querySelectorAll(`.ghost`);
   for (let i = 0; i < ghostArray.length; i++) {
     if (getPosition() === getSpritePosition(ghostArray[i])) {
-      alert(`uh oh, you lost`);
+      document.querySelector(`.game-message`).style.display = `grid`;
+      document.querySelector(`.game-over`).style.display = `grid`;
       gameActive = false;
     }
   }
 };
-const gameOver = () => {
-  alert(`uh oh, you lost`);
+
+const resetGame = () => {
+  initialPosition();
+  red.ghostPositionStart(14, 13);
+  orange.ghostPositionStart(16, 13);
+  pink.ghostPositionStart(15, 13);
+  turquoise.ghostPositionStart(13, 13);
+  layDots(dotArray);
+  score = 0;
+  document.querySelector(`.game-message`).style.display = `none`;
+  document.querySelector(`.game-over`).style.display = `none`;
+  document.querySelector(`.win-message`).style.display = `none`;
+  gameActive = true;
 };
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
-
-/* player animation */
-// document.body.addEventListener(`keydown`, (event) => {
-//   switch (event.key){
-//     case `ArrowUp`:
-//       style.top
-//   }
-//   let anim = player.animate(
-//     { transform: `translate(${event.clientX}px, ${event.clientY}px)` },
-//     { duration: 500, fill: 'forwards' }
-//   );
-
-//   anim.commitStyles();
-
-//   //anim.persist()
-
-//   anim.onremove = function () {
-//     console.log('Animation removed');
-//   };
-
-//   console.log(anim.replaceState);
-// });
-
-playerMoveAnim = new AnimationEvent(`animationstart`, {
-  animationName: moveforward,
-  elapsedTime: 0,
-  pseudoElement: ``
-});
+replayBttn.addEventListener(`click`, resetGame);

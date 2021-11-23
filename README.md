@@ -52,3 +52,8 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ***
 
 ### ***Credits***
+Music https://www.classicgaming.cc/classics/pac-man/sounds
+Icons
+flyclipart.com
+https://www.pngwing.com/
+Fonts
