@@ -46,7 +46,7 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 
 ### ***Getting Started***
 
-1. Navigate to [https://javaman.surge.sh/game.html](https://javaman.surge.sh/game.html)
+1. Navigate to [https://javaman.surge.sh/](https://javaman.surge.sh/)
 2. Click *Insert Coin* to begin.
 3. Move your player with arrow keys on your keyboard
 4. "Eat" all of the dots to win
