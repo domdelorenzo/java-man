@@ -142,33 +142,18 @@ ul {
 }
 .wall{
   background:var(--bg-color);
-  border: solid var(--border-color);
-  margin: 1px;
+  border: solid var(--border-color) .1vmin;
+  margin: .1vmin;
 
-}
-.top-border {
-  border-top: solid #4783ff;
-  background:green;
-}
-.bottom-border {
-  border-bottom: solid #4783ff;
-}
-.right-border {
-  border-right: solid #4783ff;
-}
-.left-border {
-  border-left: solid #4783ff;
 }
 
 .path{
   background:var(--bg-color);
   border: none;
-  /* margin -1px; */
+
 }
 .dot {
   display: grid;
-  /* justify-items: center; */
-  /* align-items:center; */
   background: var(--primary-color);
   border-radius: 50%;
   width: 25%;
