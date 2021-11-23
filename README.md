@@ -16,8 +16,6 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ***
 
 ### ***Screenshots***
-(will replace with actual screenshot when game is done)
-
 <img src ="resources/pacman-screenshot.png" width="250"/>
 
 ***
@@ -26,6 +24,7 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 * HTML
 * CSS
 * JavaScript
+* Project status and strategy is viewable on the project's [Trello page.](https://trello.com/b/6DbCmZkT/project-1-pacman-clone)
 
 ***
 
@@ -45,21 +44,21 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 
 ### ***Getting Started***
 
-1. Click *Start Game* to begin.
-2. Move your player with direction keys (<^>)
-3. Avoid the ghosts!
+1. Click *Insert Coin* to begin.
+2. Move your player with arrow keys on your keyboard
+3. "Eat" all of the dots to win
+4. Avoid the ghosts!
 
 
 ***
 
 ### ***Credits***
-Music https://www.classicgaming.cc/classics/pac-man/sounds
-Icons
-flyclipart.com
-https://www.pngwing.com/
-Fonts
+**Fonts:** [Press Start P2 on Google Fonts]("https://fonts.google.com/specimen/Press+Start+2P")
 
-CSS day/night theme tutorial: 
-https://dev.to/ananyaneogi/create-a-dark-light-mode-switch-with-css-variables-34l8
-https://css-tricks.com/pac-man-in-css/
-https://bennettfeely.com/clippy/
+**Music:** [Classic Gaming]("https://www.classicgaming.cc/classics/pac-man/sounds") (to be added in a futuer release)
+
+**Ghost Sprites:** https://flyclipart.com
+
+**CSS theming tutorial:** https://dev.to/ananyaneogi/create-a-dark-light-mode-switch-with-css-variables-34l8
+
+**Pacman Animation Inspiration:** https://css-tricks.com/pac-man-in-css/ & https://bennettfeely.com/clippy/

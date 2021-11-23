@@ -2,6 +2,7 @@
 
 //constant to identify player cell with CSS class
 const player = document.getElementById(`player`);
+
 /* ghost Class */
 
 class Ghost {
@@ -43,14 +44,18 @@ const turquoise = new Ghost(`turquoiseGhost`);
 turquoise.createGhost();
 turquoise.ghostPositionStart(13, 13);
 
+/* Game conditions*/
 let gameActive = true;
 let levelWin = 0;
+
+/* Theme constants*/
 const replayBttn = document.querySelector('.replay-button');
 const invertedTheme = document.getElementById('inverted');
 const classicTheme = document.getElementById('classic');
 const crtTheme = document.getElementById('crt');
 const nordTheme = document.getElementById('nord');
 
+/*Map Arrays*/
 const dotArray = [
   `2_2`,
   `2_3`,
@@ -354,7 +359,9 @@ const dotArray = [
 
 const gateArray = [`15_1`, `15_28`];
 let score = 0;
+
 /* define functions here */
+
 //set player initial position
 const initialPosition = () => {
   player.style.gridColumnStart = 13;
@@ -362,20 +369,20 @@ const initialPosition = () => {
 };
 initialPosition();
 
-//retrieve any sprite position at any time
+//Retrieve any sprite position at any time
 const getSpritePosition = (sprite) => {
   let x = sprite.style.gridColumnStart;
   let y = sprite.style.gridRowStart;
   return `${y}_${x}`;
 };
 
-// retrieve player position at any time
+//Retrieve player position at any time
 const getPosition = () => {
   let x = document.querySelector(`.player`).style.gridColumnStart;
   let y = document.querySelector(`.player`).style.gridRowStart;
   return `${y}_${x}`;
 };
-// change dots to blank background and increment score
+//Change dots to blank background and increment score
 const incrementScore = () => {
   score++;
   document.querySelector(`.score`).innerText = score;
@@ -387,7 +394,8 @@ const eatDot = (coord) => {
     incrementScore();
   }
 };
-/* Generate Grid*/
+
+// Generate Grid
 const gridMaker = (x, y) => {
   for (let i = 1; i < x; i++) {
     for (let j = 1; j < y; j++) {
@@ -411,51 +419,14 @@ const gateSetup = (arr) => {
 
 gateSetup(gateArray);
 
-/* establish dots*/
+//Generate Dots
 const layDots = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     document.getElementById(arr[i]).setAttribute('class', 'dot');
   }
 };
-
 layDots(dotArray);
 
-// const drawBorder = () => {
-//   let wallArray = document.getElementsByClassName(`wall`);
-//   for (let i = 32; i < wallArray.length - 40; i++) {
-//     let x = wallArray[i].id[2];
-//     let y = wallArray[i].id[0];
-//     let bottomCell = document.getElementById(`${y + 1}_${x}`);
-//     let topCell = document.getElementById(`${y - 1}_${x}`);
-//     let leftCell = document.getElementById(`${y}_${x - 1}`);
-//     let rightCell = document.getElementById(`${y}_${x + 1}`);
-//     if (topCell !== null) {
-//       if (topCell.className === `dot`) {
-//         wallArray[i].classList.add(`top-border`);
-//       }
-//     }
-//     if (bottomCell !== null) {
-//       if (bottomCell.className === `dot`) {
-//         wallArray[i].classList.add(`bottom-border`);
-//       }
-//     }
-//     if (rightCell !== null) {
-//       if (rightCell.className === `dot`) {
-//         wallArray[i].classList.add(`right-border`);
-//       }
-//     }
-
-//     if (leftCell !== null) {
-//       if (leftCell.className === `dot`) {
-//         wallArray[i].classList.add(`left-border`);
-//       }
-//     }
-//   }
-// };
-
-// drawBorder();
-
-/* detect walls */
 //get class of adjacent square
 const adjacentPosition = (a, b) => {
   let x = parseInt(document.querySelector(`.player`).style.gridColumnStart) + a;
@@ -471,7 +442,7 @@ const spriteAdjacentPosition = (sprite, a, b) => {
   return document.getElementById(adjSquareID).className;
 };
 
-//* directional functions*//
+/* directional functions*/
 
 const playerXCoord = () => {
   return player.style.gridColumnStart;
@@ -485,91 +456,6 @@ const ghostXCoord = (sprite) => {
 };
 const ghostYCoord = (sprite) => {
   return sprite.style.gridRowStart;
-};
-const smartGhostMove = (sprite) => {
-  let choiceArray = [0, 1, 2, 3];
-  if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(0), 1);
-  }
-  if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(1), 1);
-  }
-  if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(2), 1);
-  }
-  if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
-    choiceArray.splice(choiceArray.indexOf(3), 1);
-  }
-  let smartChoice = 0;
-
-  if (
-    playerXCoord() < ghostXCoord(sprite) &&
-    !(spriteAdjacentPosition(sprite, -1, 0) === `wall`)
-  ) {
-    console.log(`${sprite} left`);
-    smartChoice = 2;
-  } else if (
-    playerXCoord() > ghostXCoord(sprite) &&
-    !(spriteAdjacentPosition(sprite, 1, 0) === `wall`)
-  ) {
-    console.log(`${sprite} right`);
-    smartChoice = 3;
-  } else if (
-    playerYCoord() < ghostYCoord(sprite) &&
-    !(spriteAdjacentPosition(sprite, 0, -1) === `wall`)
-  ) {
-    console.log(`${sprite} up`);
-    smartChoice = 0;
-  } else if (
-    playerYCoord() > ghostYCoord(sprite) &&
-    !(spriteAdjacentPosition(sprite, 0, 1) === `wall`)
-  ) {
-    console.log(`${sprite} down`);
-    smartChoice = 1;
-  } else {
-    console.log(`random`);
-    smartChoice = Math.floor(Math.random() * choiceArray.length);
-  }
-
-  switch (smartChoice) {
-    case 0:
-      if (spriteAdjacentPosition(sprite, 0, -1) === `wall`) {
-        return;
-      } else {
-        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) - 1;
-        break;
-      }
-      break;
-    case 1:
-      if (spriteAdjacentPosition(sprite, 0, 1) === `wall`) {
-        return;
-      } else {
-        sprite.style.gridRowStart = parseInt(sprite.style.gridRowStart) + 1;
-        break;
-      }
-      break;
-    case 2:
-      if (spriteAdjacentPosition(sprite, -1, 0) === `wall`) {
-        return;
-      } else {
-        sprite.style.gridColumnStart =
-          parseInt(sprite.style.gridColumnStart) - 1;
-        break;
-      }
-      break;
-    case 3:
-      if (spriteAdjacentPosition(sprite, 1, 0) === `wall`) {
-        return;
-      } else {
-        sprite.style.gridColumnStart =
-          parseInt(sprite.style.gridColumnStart) + 1;
-        break;
-      }
-      break;
-    default:
-      return;
-  }
-  deathCheck();
 };
 
 //ghost move function
@@ -831,7 +717,6 @@ function themeSwitch() {
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
 replayBttn.addEventListener(`click`, resetGame);
-
 invertedTheme.addEventListener('click', themeSwitch);
 classicTheme.addEventListener('click', themeSwitch);
 crtTheme.addEventListener('click', themeSwitch);
