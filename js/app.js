@@ -760,7 +760,7 @@ const ghostAi = () => {
   }
 };
 const ghostPace = () => {
-  setInterval(ghostAi, 1000);
+  setInterval(ghostAi, 250);
 };
 
 ghostPace();
@@ -804,3 +804,32 @@ const resetGame = () => {
 /* add eventListeners here */
 document.addEventListener(`keydown`, moveFunc);
 replayBttn.addEventListener(`click`, resetGame);
+
+const invertedTheme = document.getElementById('inverted');
+const classicTheme = document.getElementById('classic');
+const crtTheme = document.getElementById('crt');
+const nordTheme = document.getElementById('nord');
+
+function themeSwitch() {
+  switch (this.id) {
+    case `inverted`:
+      document.documentElement.setAttribute('data-theme', 'inverted');
+      return;
+    case `classic`:
+      document.documentElement.setAttribute('data-theme', 'classic');
+      return;
+    case `crt`:
+      document.documentElement.setAttribute('data-theme', 'crt');
+      return;
+    case `nord`:
+      document.documentElement.setAttribute('data-theme', 'nord');
+      return;
+    default:
+      return;
+  }
+}
+
+invertedTheme.addEventListener('click', themeSwitch);
+classicTheme.addEventListener('click', themeSwitch);
+crtTheme.addEventListener('click', themeSwitch);
+nordTheme.addEventListener('click', themeSwitch);

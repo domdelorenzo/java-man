@@ -57,3 +57,6 @@ Icons
 flyclipart.com
 https://www.pngwing.com/
 Fonts
+
+CSS day/night theme tutorial: 
+https://dev.to/ananyaneogi/create-a-dark-light-mode-switch-with-css-variables-34l8

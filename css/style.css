@@ -1,10 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+:root {
+  --bg-color: #000000;
+  --primary-color: #faff8a;
+  --border-color:#4783ff;
+
+}
+[data-theme="inverted"] {
+  --bg-color: #faff8a;
+  --primary-color: #000000;
+  --border-color:#05286d;
+}
+[data-theme="classic"] {
+  --bg-color: #000000;
+  --primary-color: #faff8a;
+  --border-color:#4783ff;
+
+}
+[data-theme="crt"] {
+  --bg-color: #021100;
+  --primary-color: #00ff0d;
+  --border-color:#0fb400;
+}
+
+[data-theme="nord"] {
+  --bg-color: #2E3440;
+  --primary-color: #D8DEE9;
+  --border-color:#81A1C1;
+}
 
 * {
   font-family: 'Press Start 2P', cursive;
-  background: #000000;
-  color: #faff8a;
+  background: var(--bg-color);
+  color: var(--primary-color);
 }
 .welcome {
   display:flex;
@@ -20,9 +48,21 @@ h1{
   font-size: 6vmin;
   background:none;
 }
+h3 {
+  font-size:2.5vmin;
+}
 ul {
   font-size: 1.5vmin;
   list-style:none;
+}
+.theme-bttn {
+  font-size:2vmin;
+  border: solid var(--primary-color);
+  padding: 1vmin;
+  border-radius: 5px;
+  margin:.5vmin;
+  margin-left: -5vmin;
+
 }
 .subheading, .startbutton {
   font-size:2vmin;
@@ -30,13 +70,13 @@ ul {
 }
 .start-button, .replay-button {
   font-size: 2vmin;
-  border: solid #faff8a; 
+  border: solid var(--primary-color); 
   padding: 1em;
   border-radius: 12px;
 }
 .body {
-  background: #000000;
-  color: #faff8a;
+  background:var(--bg-color);
+  color: var(--primary-color);
 
 }
 
@@ -62,7 +102,7 @@ ul {
   grid-template-rows: repeat(31,2.5vmin);
   /* position: absolute; */
   /* position: relative; */
-  background: #000000;
+  background:var(--bg-color);
   grid-row-start: 2;
   grid-column-start: 1;
   z-index: 2;
@@ -106,8 +146,8 @@ ul {
   background: rgba(0, 0, 0, 0.2);
 }
 .wall{
-  background:#000000;
-  border: solid #4783ff;
+  background:var(--bg-color);
+  border: solid var(--border-color);
   margin: 1px;
 
 }
@@ -126,7 +166,7 @@ ul {
 }
 
 .path{
-  background: #000000;
+  background:var(--bg-color);
   border: none;
   /* margin -1px; */
 }
@@ -134,7 +174,7 @@ ul {
   display: grid;
   /* justify-items: center; */
   /* align-items:center; */
-  background: #faff8a;
+  background: var(--primary-color);
   border-radius: 50%;
   width: 25%;
   height: 25%;
