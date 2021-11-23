@@ -31,7 +31,6 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 ### ***Roadmap (Future Updates)***
 
 * [x] animate sprites
-
 * [x] Add darkmode/color theming
 * [x] Add sound effects
 * [x] Add background music
@@ -47,15 +46,18 @@ Java-Man is a browser-based Pac-Man clone, written in JavaScript.
 
 ### ***Getting Started***
 
-1. Click *Insert Coin* to begin.
-2. Move your player with arrow keys on your keyboard
-3. "Eat" all of the dots to win
-4. Avoid the ghosts!
+1. Navigate to [https://javaman.surge.sh/game.html](https://javaman.surge.sh/game.html)
+2. Click *Insert Coin* to begin.
+3. Move your player with arrow keys on your keyboard
+4. "Eat" all of the dots to win
+5. Avoid the ghosts!
 
 
 ***
 
 ### ***Credits***
+**Hosting:** Surge.sh
+
 **Fonts:** [Press Start P2 on Google Fonts]("https://fonts.google.com/specimen/Press+Start+2P")
 
 **Music:** [Classic Gaming]("https://www.classicgaming.cc/classics/pac-man/sounds") 
